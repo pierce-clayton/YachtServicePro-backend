@@ -6,7 +6,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   end
 
   allow do
-    origins 'http://mydomain.com:3000'
+    origins 'https://ysp.baracus.rocks'
     resource '*', headers: :any, methods: %i[get post put patch delete options head], 
                   credentials: true
   end
