@@ -17,7 +17,7 @@ class RegistrationsController < ApplicationController
         user: user
       }, except: %i[password_digest created_at updated_at]
     elsif customer
-      session[:user_id] = customer.id
+      session[:customer_id] = customer.id
       render json: {
         status: :created,
         customer: customer

@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
         user: user
       }, except: %i[password_digest created_at updated_at]
     elsif customer
-      session[:user_id] = customer.id
+      session[:customer_id] = customer.id
       render json: {
         status: :created,
         logged_in: true,
@@ -29,10 +29,15 @@ class SessionsController < ApplicationController
   end
 
   def logged_in
-    if @current_user
+    if session[:user_id]
       render json: {
         logged_in: true,
         user: @current_user
+      }, except: %i[password_digest created_at updated_at]
+    elsif session[:customer_id]
+      render json: {
+        logged_in: true,
+        customer: @current_user
       }, except: %i[password_digest created_at updated_at]
     else
       render json: {
