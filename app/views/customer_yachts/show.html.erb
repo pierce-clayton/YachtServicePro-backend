@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @customer_yacht.customer_id %>
+</p>
+
+<p>
+  <strong>Yacht:</strong>
+  <%= @customer_yacht.yacht_id %>
+</p>
+
+<%= link_to 'Edit', edit_customer_yacht_path(@customer_yacht) %> |
+<%= link_to 'Back', customer_yachts_path %>

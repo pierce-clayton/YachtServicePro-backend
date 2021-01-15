@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @yacht.name %>
+</p>
+
+<p>
+  <strong>Length:</strong>
+  <%= @yacht.length %>
+</p>
+
+<p>
+  <strong>Sail:</strong>
+  <%= @yacht.sail %>
+</p>
+
+<p>
+  <strong>Registration number:</strong>
+  <%= @yacht.registration_number %>
+</p>
+
+<%= link_to 'Edit', edit_yacht_path(@yacht) %> |
+<%= link_to 'Back', yachts_path %>

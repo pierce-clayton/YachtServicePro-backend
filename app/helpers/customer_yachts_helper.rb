@@ -1,0 +1,2 @@
+module CustomerYachtsHelper
+end

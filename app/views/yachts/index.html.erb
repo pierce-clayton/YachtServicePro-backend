@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Yachts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Length</th>
+      <th>Sail</th>
+      <th>Registration number</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @yachts.each do |yacht| %>
+      <tr>
+        <td><%= yacht.name %></td>
+        <td><%= yacht.length %></td>
+        <td><%= yacht.sail %></td>
+        <td><%= yacht.registration_number %></td>
+        <td><%= link_to 'Show', yacht %></td>
+        <td><%= link_to 'Edit', edit_yacht_path(yacht) %></td>
+        <td><%= link_to 'Destroy', yacht, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Yacht', new_yacht_path %>

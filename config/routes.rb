@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :marinas
+  resources :customer_yachts
+  resources :yachts
+  resources :customers
   resources :sessions, only: %i[create]
   resources :registrations, only: %i[create]
   delete :logout, to: 'sessions#logout'
