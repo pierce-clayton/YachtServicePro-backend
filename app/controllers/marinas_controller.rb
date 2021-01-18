@@ -69,6 +69,6 @@ class MarinasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def marina_params
-      params.require(:marina).permit(:address_line_1, :address_line_2, :city, :state, :zip, :description)
+      params.require(:marina).permit(:name, :address_line_1, :address_line_2, :city, :state, :zip, :description)
     end
 end
