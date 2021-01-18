@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Name</th>
       <th>Address line 1</th>
       <th>Address line 2</th>
       <th>City</th>
@@ -18,6 +19,7 @@
   <tbody>
     <% @marinas.each do |marina| %>
       <tr>
+        <td><%= marina.name %></td>
         <td><%= marina.address_line_1 %></td>
         <td><%= marina.address_line_2 %></td>
         <td><%= marina.city %></td>
