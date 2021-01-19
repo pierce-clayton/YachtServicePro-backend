@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :products
   resources :marinas
   resources :customer_yachts
   resources :yachts
