@@ -1,5 +1,6 @@
 class YachtsController < ApplicationController
   before_action :set_yacht, only: [:show, :edit, :update, :destroy]
+  include CurrentUserConcern
 
   # GET /yachts
   # GET /yachts.json
