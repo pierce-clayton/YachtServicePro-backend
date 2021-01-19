@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  before_action :set_customer, only: %i[show edit update destroy]
 
   # GET /customers
   # GET /customers.json
@@ -10,7 +10,7 @@ class CustomersController < ApplicationController
   # GET /customers/1
   # GET /customers/1.json
   def show
-    render json: @customer, include: :yachts
+    render json: @customer, include: :yachts, except: %i[created_at updated_at password_digest]
   end
 
   # GET /customers/new
