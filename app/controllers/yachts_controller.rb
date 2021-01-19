@@ -24,7 +24,7 @@ class YachtsController < ApplicationController
   # POST /yachts
   # POST /yachts.json
   def create
-    @yacht = Yacht.new(yacht_params)
+    @yacht = @current_user.yachts.build(yacht_params)
 
     respond_to do |format|
       if @yacht.save
