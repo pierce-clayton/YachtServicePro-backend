@@ -69,6 +69,6 @@ class YachtsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def yacht_params
-      params.require(:yacht).permit(:name, :length, :sail, :registration_number)
+      params.require(:yacht).permit(:name, :length, :sail, :registration_number, :marina_id)
     end
 end

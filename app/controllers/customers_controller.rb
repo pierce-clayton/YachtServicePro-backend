@@ -20,7 +20,7 @@ class CustomersController < ApplicationController
   # GET /customers/1/edit
   def edit
   end
-
+  
   # POST /customers
   # POST /customers.json
   def create
