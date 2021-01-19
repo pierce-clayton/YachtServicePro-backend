@@ -10,6 +10,7 @@ class CustomersController < ApplicationController
   # GET /customers/1
   # GET /customers/1.json
   def show
+    render json: @customer, include: :yachts
   end
 
   # GET /customers/new
@@ -20,7 +21,7 @@ class CustomersController < ApplicationController
   # GET /customers/1/edit
   def edit
   end
-  
+
   # POST /customers
   # POST /customers.json
   def create
