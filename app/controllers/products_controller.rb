@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  include StripeKeyConcern
+  before_action :set_stripe_key
   include CurrentUserConcern
   # GET /products
   # GET /products.json
@@ -25,15 +25,16 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @stripe_product = Stripe::Product.create({name: params[:name], description: params[:description]})
-    params[:stripe_product_id] = @stripe_product.id
-    params[:stripe_attributes] = @stripe_product.attributes
-    params[:active] = @stripe_product.active
-    params[:user_id] = @current_user.id
+    @stripe_product = Stripe::Product.create({name: product_params[:name], description: product_params[:description]})
+    puts @stripe_product
     @product = Product.new(product_params)
+    @product[:stripe_product_id] = @stripe_product.id
+    @product[:stripe_attributes] = @stripe_product.attributes
+    @product[:images] = @stripe_product.images
+    @product[:active] = true
 
     respond_to do |format|
-      if @product.save
+      if @product.save!
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
@@ -68,13 +69,15 @@ class ProductsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def product_params
-      params.require(:product).permit(:user_id, :marina_id, :stripe_product_id, :active, :stripe_attributes, :description, :images, :name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_product
+    @product = Product.find(params[:id])
+  end
+  def set_stripe_key
+    Stripe.api_key = 'sk_test_51I8VgBLQ8SRg06CGQYgJKACHjoPnXoN0pcNzoG3aCt4dXoDVJsMPL6HiYw0ISS8HGnx6hr3NGjbntXF5QTbFdqPW00idukCUXR'
+  end
+  # Only allow a list of trusted parameters through.
+  def product_params
+    params.require(:product).permit(:user_id, :marina_id, :stripe_product_id, :active, :stripe_attributes, :description, :images, :name)
+  end
 end
