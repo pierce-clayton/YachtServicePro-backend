@@ -26,17 +26,17 @@ class PricesController < ApplicationController
   # POST /prices
   # POST /prices.json
   def create
-    if params[:recurring_interval != 'none']
+    if %w[day week month year].contains?(params[:recurring_interval])
       @stripe_price = Stripe::Price.create(product: @product.stripe_product_id,
-                                           unit_amount: price_params[:unit_amount],
+                                           unit_amount: price_params[:unit_amount].to_i,
                                            currency: 'usd',
                                            recurring: { 
                                             interval: price_params[:recurring_interval],
-                                            interval_count: price_params[:recurring_count]
+                                            interval_count: price_params[:recurring_count].to_i
                                                       })
     else
       @stripe_price = Stripe::Price.create(product: @product.stripe_product_id,
-                                           unit_amount: price_params[:unit_amount],
+                                           unit_amount: price_params[:unit_amount].to_i,
                                            currency: 'usd')
     end
 
