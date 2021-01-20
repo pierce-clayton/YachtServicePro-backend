@@ -26,21 +26,26 @@ class PricesController < ApplicationController
   # POST /prices
   # POST /prices.json
   def create
-    @stripe_price = Stripe::Price.create(product: @product.stripe_product_id,
-                                         unit_amount: price_params[:unit_amount],
-                                         currency: 'usd',
-                                         type: price_params[:stripe_type],
-                                         recurring: { 
-                                         interval: price_params[:recurring_interval],
-                                         interval_count: price_params[:recurring_count]
-                                                    })
+    if params[:recurring_interval != 'none']
+      @stripe_price = Stripe::Price.create(product: @product.stripe_product_id,
+                                           unit_amount: price_params[:unit_amount],
+                                           currency: 'usd',
+                                           recurring: { 
+                                            interval: price_params[:recurring_interval],
+                                            interval_count: price_params[:recurring_count]
+                                                      })
+    else
+      @stripe_price = Stripe::Price.create(product: @product.stripe_product_id,
+                                           unit_amount: price_params[:unit_amount],
+                                           currency: 'usd')
+    end
 
     @price = @product.prices.build(price_params)
     @price[:stripe_id] = @stripe_price['id']
     @price[:stripe_type] = @stripe_price['type']
 
     respond_to do |format|
-      if @price.save
+      if @price.save!
         format.html { redirect_to product_prices_path(@product), notice: 'Price was successfully created.' }
         format.json { render :show, status: :created, location: @price }
       else
