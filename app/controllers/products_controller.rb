@@ -26,7 +26,6 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @stripe_product = Stripe::Product.create({name: product_params[:name], description: product_params[:description]})
-    puts @stripe_product
     @product = Product.new(product_params)
     @product[:stripe_product_id] = @stripe_product.id
     @product[:stripe_attributes] = @stripe_product.attributes
