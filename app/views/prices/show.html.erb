@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @price.product_id %>
+</p>
+
+<p>
+  <strong>Unit amount:</strong>
+  <%= @price.unit_amount %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @price.type %>
+</p>
+
+<p>
+  <strong>Recurring interval:</strong>
+  <%= @price.recurring_interval %>
+</p>
+
+<p>
+  <strong>Recurring count:</strong>
+  <%= @price.recurring_count %>
+</p>
+
+<p>
+  <strong>Stripe:</strong>
+  <%= @price.stripe_id %>
+</p>
+
+<%= link_to 'Edit', edit_price_path(@price) %> |
+<%= link_to 'Back', prices_path %>

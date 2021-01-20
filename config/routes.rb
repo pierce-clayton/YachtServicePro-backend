@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :products
+  resources :products do
+    resources :prices
+  end
   resources :marinas
   resources :customer_yachts
   resources :yachts

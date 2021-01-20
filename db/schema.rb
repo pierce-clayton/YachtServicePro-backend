@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_19_215642) do
+ActiveRecord::Schema.define(version: 2021_01_20_185926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,18 @@ ActiveRecord::Schema.define(version: 2021_01_19_215642) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
+  end
+
+  create_table "prices", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.integer "unit_amount"
+    t.string "stripe_type"
+    t.string "recurring_interval"
+    t.integer "recurring_count"
+    t.string "stripe_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_prices_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -78,6 +90,7 @@ ActiveRecord::Schema.define(version: 2021_01_19_215642) do
 
   add_foreign_key "customer_yachts", "customers"
   add_foreign_key "customer_yachts", "yachts"
+  add_foreign_key "prices", "products"
   add_foreign_key "products", "marinas"
   add_foreign_key "products", "users"
 end
