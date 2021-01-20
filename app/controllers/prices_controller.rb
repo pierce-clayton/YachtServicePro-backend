@@ -26,7 +26,7 @@ class PricesController < ApplicationController
   # POST /prices
   # POST /prices.json
   def create
-    if %w[day week month year].contains?(params[:recurring_interval])
+    if %w[day week month year].include?(params[:recurring_interval])
       @stripe_price = Stripe::Price.create(product: @product.stripe_product_id,
                                            unit_amount: price_params[:unit_amount].to_i,
                                            currency: 'usd',
