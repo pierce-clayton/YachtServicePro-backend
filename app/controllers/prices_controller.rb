@@ -1,6 +1,8 @@
 class PricesController < ApplicationController
   before_action :get_product
   before_action :set_price, only: [:show, :edit, :update, :destroy]
+  before_action :set_stripe_key
+  include CurrentUserConcern
   # GET /prices
   # GET /prices.json
   def index
@@ -24,7 +26,18 @@ class PricesController < ApplicationController
   # POST /prices
   # POST /prices.json
   def create
+    @stripe_price = Stripe::Price.create(product: @product.stripe_product_id,
+                                         unit_amount: price_params[:unit_amount],
+                                         currency: 'usd',
+                                         type: price_params[:stripe_type],
+                                         recurring: { 
+                                         interval: price_params[:recurring_interval],
+                                         interval_count: price_params[:recurring_count]
+                                                    })
+
     @price = @product.prices.build(price_params)
+    @price[:stripe_id] = @stripe_price['id']
+    @price[:stripe_type] = @stripe_price['type']
 
     respond_to do |format|
       if @price.save
@@ -69,6 +82,10 @@ class PricesController < ApplicationController
 
   def set_price
     @price = @product.prices.find(params[:id])
+  end
+
+  def set_stripe_key
+    Stripe.api_key = 'sk_test_51I8VgBLQ8SRg06CGQYgJKACHjoPnXoN0pcNzoG3aCt4dXoDVJsMPL6HiYw0ISS8HGnx6hr3NGjbntXF5QTbFdqPW00idukCUXR'
   end
 
   # Only allow a list of trusted parameters through.
