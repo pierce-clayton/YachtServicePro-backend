@@ -32,7 +32,6 @@ class CheckoutSessionsController < ApplicationController
       line_items: [...{price: price_obj[:stripe_id]}],
       mode: checkout_session_params[:stripe_mode],
       customer: customer_obj[:stripe_id],
-      customer_email: customer_obj[:email],
       success_url: checkout_session_params[:success_url],
       cancel_url: checkout_session_params[:cancel_url]
       })
