@@ -4,6 +4,6 @@ class Customer < ApplicationRecord
   validates_presence_of :email
   validates_uniqueness_of :email
 
-  has_many :customer_yachts
+  has_many :customer_yachts, dependent: :destroy
   has_many :yachts, through: :customer_yachts
 end
