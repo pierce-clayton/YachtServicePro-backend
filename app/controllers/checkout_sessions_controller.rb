@@ -25,14 +25,14 @@ class CheckoutSessionsController < ApplicationController
   # POST /checkout_sessions
   # POST /checkout_sessions.json
   def create
-    price = Price.find_by(id: checkout_session_params[:price_id])
-    customer_obj = Customer.find_by(id: checkout_session_params[:customer_id])
+    price_obj = Price.find_by!(stripe_id: checkout_session_params[:price_id])
+    customer_obj = Customer.find_by!(stripe_id: checkout_session_params[:customer_id])
     @stripe_checkout_session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
-      line_items: [price: price.stripe_id],
+      line_items: [...{price: price_obj[:stripe_id]}],
       mode: checkout_session_params[:stripe_mode],
-      customer: customer_obj.stripe_id,
-      customer_email: customer_obj.email,
+      customer: customer_obj[:stripe_id],
+      customer_email: customer_obj[:email],
       success_url: checkout_session_params[:success_url],
       cancel_url: checkout_session_params[:cancel_url]
       })
