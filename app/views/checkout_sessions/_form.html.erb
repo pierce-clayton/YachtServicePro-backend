@@ -1,0 +1,52 @@
+<%= form_with(model: checkout_session) do |form| %>
+  <% if checkout_session.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(checkout_session.errors.count, "error") %> prohibited this checkout_session from being saved:</h2>
+
+      <ul>
+        <% checkout_session.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :price_id %>
+    <%= form.text_field :price_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :customer_id %>
+    <%= form.text_field :customer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :stripe_mode %>
+    <%= form.text_field :stripe_mode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :success_url %>
+    <%= form.text_field :success_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cancel_url %>
+    <%= form.text_field :cancel_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :payment_intent %>
+    <%= form.text_field :payment_intent %>
+  </div>
+
+  <div class="field">
+    <%= form.label :payment_status %>
+    <%= form.text_field :payment_status %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

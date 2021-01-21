@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  price: one
+  customer: one
+  stripe_mode: MyString
+  success_url: MyString
+  cancel_url: MyString
+  payment_intent: MyString
+  payment_status: MyString
+
+two:
+  price: two
+  customer: two
+  stripe_mode: MyString
+  success_url: MyString
+  cancel_url: MyString
+  payment_intent: MyString
+  payment_status: MyString

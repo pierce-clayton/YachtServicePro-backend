@@ -6,4 +6,5 @@ class Customer < ApplicationRecord
 
   has_many :customer_yachts, dependent: :destroy
   has_many :yachts, through: :customer_yachts
+  has_many :checkout_sessions
 end

@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_21_173731) do
+ActiveRecord::Schema.define(version: 2021_01_21_200352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "checkout_sessions", force: :cascade do |t|
+    t.bigint "price_id", null: false
+    t.bigint "customer_id", null: false
+    t.string "stripe_mode"
+    t.string "success_url"
+    t.string "cancel_url"
+    t.string "payment_intent"
+    t.string "payment_status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_checkout_sessions_on_customer_id"
+    t.index ["price_id"], name: "index_checkout_sessions_on_price_id"
+  end
 
   create_table "customer_yachts", force: :cascade do |t|
     t.bigint "customer_id", null: false
@@ -89,6 +103,8 @@ ActiveRecord::Schema.define(version: 2021_01_21_173731) do
     t.integer "marina_id"
   end
 
+  add_foreign_key "checkout_sessions", "customers"
+  add_foreign_key "checkout_sessions", "prices"
   add_foreign_key "customer_yachts", "customers"
   add_foreign_key "customer_yachts", "yachts"
   add_foreign_key "prices", "products"

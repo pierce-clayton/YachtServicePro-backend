@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @checkout_session.price_id %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @checkout_session.customer_id %>
+</p>
+
+<p>
+  <strong>Stripe mode:</strong>
+  <%= @checkout_session.stripe_mode %>
+</p>
+
+<p>
+  <strong>Success url:</strong>
+  <%= @checkout_session.success_url %>
+</p>
+
+<p>
+  <strong>Cancel url:</strong>
+  <%= @checkout_session.cancel_url %>
+</p>
+
+<p>
+  <strong>Payment intent:</strong>
+  <%= @checkout_session.payment_intent %>
+</p>
+
+<p>
+  <strong>Payment status:</strong>
+  <%= @checkout_session.payment_status %>
+</p>
+
+<%= link_to 'Edit', edit_checkout_session_path(@checkout_session) %> |
+<%= link_to 'Back', checkout_sessions_path %>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :checkout_sessions
   resources :products do
     resources :prices
   end
