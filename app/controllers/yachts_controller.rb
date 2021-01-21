@@ -25,11 +25,11 @@ class YachtsController < ApplicationController
   # POST /yachts
   # POST /yachts.json
   def create
-    @yacht = Yacht.new(yacht_params)
+    @yacht = Yacht.find_or_create_by(yacht_params)
 
     respond_to do |format|
       if @yacht.save
-        CustomerYacht.create!(yacht: @yacht, customer: @current_user)
+        CustomerYacht.find_or_create_by(yacht: @yacht, customer: @current_user)
         format.html { redirect_to @yacht, notice: 'Yacht was successfully created.' }
         format.json { render :show, status: :created, location: @yacht }
       else
