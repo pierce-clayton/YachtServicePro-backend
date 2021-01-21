@@ -37,6 +37,8 @@ class CheckoutSessionsController < ApplicationController
       })
     
     @checkout_session = CheckoutSession.new(checkout_session_params)
+    @checkout_session[:price_id] = price_obj['id']
+    @checkout_session[:customer_id] = customer_obj['id']
     @checkout_session[:stripe_id] = @stripe_checkout_session['id']
     @checkout_session[:payment_intent] = @stripe_checkout_session['payment_intent']
     @checkout_session[:payment_status] = @stripe_checkout_session['payment_status']
