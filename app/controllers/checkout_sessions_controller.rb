@@ -26,17 +26,16 @@ class CheckoutSessionsController < ApplicationController
   # POST /checkout_sessions.json
   def create
     price = Price.find_by(id: checkout_session_params[:price_id])
-    customer = Customer.find_by(id: checkout_session_params[:customer_id])
-    @stripe_checkout_session = Stripe::Checkout::Session.create({ 
+    customer_obj = Customer.find_by(id: checkout_session_params[:customer_id])
+    @stripe_checkout_session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
-      line_items: [{
-        price: price.stripe_id }]
-     },
+      line_items: [price: price.stripe_id],
       mode: checkout_session_params[:stripe_mode],
-      customer: customer.stripe_id,
-      customer_email: customer.email,
+      customer: customer_obj.stripe_id,
+      customer_email: customer_obj.email,
       success_url: checkout_session_params[:success_url],
-      cancel_url: checkout_session_params[:cancel_url])
+      cancel_url: checkout_session_params[:cancel_url]
+      })
     
     @checkout_session = CheckoutSession.new(checkout_session_params)
     @checkout_session[:stripe_id] = @stripe_checkout_session['id']
@@ -90,6 +89,6 @@ class CheckoutSessionsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def checkout_session_params
-    params.require(:checkout_session).permit(:price_id, :customer_id, :stripe_mode, :success_url, :cancel_url, :payment_intent, :payment_status, :stripe_id)
+    params.require(:checkout_session).permit(:price_id, :customer_id, :stripe_mode, :success_url, :cancel_url, :payment_intent, :payment_status,:stripe_id)
   end
 end
