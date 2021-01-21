@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: %i[show edit update destroy]
-
+  before_action :set_stripe_key
   # GET /customers
   # GET /customers.json
   def index
@@ -25,10 +25,12 @@ class CustomersController < ApplicationController
   # POST /customers
   # POST /customers.json
   def create
+    @stripe_customer = Stripe::Customer.create(email: customer_params[:email])
     @customer = Customer.new(customer_params)
+    @customer[:stripe_id] = @stripe_customer['id']
 
     respond_to do |format|
-      if @customer.save
+      if @customer.save!
         format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
         format.json { render :show, status: :created, location: @customer }
       else
@@ -66,6 +68,10 @@ class CustomersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_customer
       @customer = Customer.find(params[:id])
+    end
+
+    def set_stripe_key
+      Stripe.api_key = 'sk_test_51I8VgBLQ8SRg06CGQYgJKACHjoPnXoN0pcNzoG3aCt4dXoDVJsMPL6HiYw0ISS8HGnx6hr3NGjbntXF5QTbFdqPW00idukCUXR'
     end
 
     # Only allow a list of trusted parameters through.
