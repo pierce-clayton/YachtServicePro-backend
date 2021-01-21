@@ -90,6 +90,6 @@ class CheckoutSessionsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def checkout_session_params
-    params.require(:checkout_session).permit(:price_id, :customer_id, :stripe_mode, :success_url, :cancel_url, :payment_intent, :payment_status)
+    params.require(:checkout_session).permit(:price_id, :customer_id, :stripe_mode, :success_url, :cancel_url, :payment_intent, :payment_status, :stripe_id)
   end
 end
