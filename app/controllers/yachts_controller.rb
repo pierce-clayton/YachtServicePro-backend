@@ -28,7 +28,7 @@ class YachtsController < ApplicationController
     @yacht = Yacht.new(yacht_params)
 
     respond_to do |format|
-      if @yacht.save
+      if @yacht.save!
         CustomerYacht.find_or_create_by(yacht: @yacht, customer: @current_user)
         format.html { redirect_to @yacht, notice: 'Yacht was successfully created.' }
         format.json { render :show, status: :created, location: @yacht }
