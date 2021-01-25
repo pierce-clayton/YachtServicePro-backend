@@ -25,7 +25,7 @@ class YachtsController < ApplicationController
   # POST /yachts
   # POST /yachts.json
   def create
-    @yacht = Yacht.find_by(registration_number: yacht_params[:registration_number]) || Yacht.new(yacht_params)
+    @yacht = Yacht.new(yacht_params)
 
     respond_to do |format|
       if @yacht.save
