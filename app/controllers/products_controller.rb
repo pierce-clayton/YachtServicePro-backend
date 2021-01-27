@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    
+    render json: @product , include: :prices
   end
   # POST /products
   # POST /products.json
