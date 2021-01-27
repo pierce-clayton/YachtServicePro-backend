@@ -44,13 +44,10 @@ class PricesController < ApplicationController
     @price[:stripe_id] = @stripe_price['id']
     @price[:stripe_type] = @stripe_price['type']
 
-    respond_to do |format|
-      if @price.save!
-        render json: @product
-      else
-        format.html { render :new }
-        format.json { render json: @price.errors, status: :unprocessable_entity }
-      end
+    if @price.save!
+      render json: @price
+    else
+      render json: {errors: 'there was an error'}
     end
   end
 
