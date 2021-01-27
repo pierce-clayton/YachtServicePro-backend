@@ -43,7 +43,7 @@ class YachtsController < ApplicationController
   # PATCH/PUT /yachts/1.json
   def update
     respond_to do |format|
-      if @yacht.update(yacht_params)
+      if @yacht.update!(yacht_params)
         format.html { redirect_to @yacht, notice: 'Yacht was successfully updated.' }
         format.json { render :show, status: :ok, location: @yacht }
       else

@@ -3,25 +3,7 @@ class PricesController < ApplicationController
   before_action :set_price, only: [:show, :edit, :update, :destroy]
   before_action :set_stripe_key
   include CurrentUserConcern
-  # GET /prices
-  # GET /prices.json
-  def index
-    @prices = @product.prices
-  end
 
-  # GET /prices/1
-  # GET /prices/1.json
-  def show
-  end
-
-  # GET /prices/new
-  def new
-    @price = @product.prices.build
-  end
-
-  # GET /prices/1/edit
-  def edit
-  end
 
   # POST /prices
   # POST /prices.json
@@ -48,20 +30,6 @@ class PricesController < ApplicationController
       render json: @product, include: :prices
     else
       render json: {errors: 'there was an error'}
-    end
-  end
-
-  # PATCH/PUT /prices/1
-  # PATCH/PUT /prices/1.json
-  def update
-    respond_to do |format|
-      if @price.update(price_params)
-        format.html { redirect_to product_prices_path(@product), notice: 'Price was successfully updated.' }
-        format.json { render :show, status: :ok, location: @price }
-      else
-        format.html { render :edit }
-        format.json { render json: @price.errors, status: :unprocessable_entity }
-      end
     end
   end
 

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :checkout_sessions
-  resources :products do
-    resources :prices
+  resources :products, only: %i[index create destroy] do
+    resources :prices, only: %i[create destroy]
   end
   resources :marinas
   resources :customer_yachts

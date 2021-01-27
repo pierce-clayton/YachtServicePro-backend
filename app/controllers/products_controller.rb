@@ -9,20 +9,6 @@ class ProductsController < ApplicationController
     render json: @products , include: :prices
   end
 
-  # GET /products/1
-  # GET /products/1.json
-  def show
-    render json: @product, include: :prices
-  end
-
-  # GET /products/new
-  def new
-    @product = Product.new
-  end
-
-  # GET /products/1/edit
-  def edit
-  end
 
   # POST /products
   # POST /products.json
@@ -45,23 +31,10 @@ class ProductsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /products/1
-  # PATCH/PUT /products/1.json
-  def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-        format.json { render :show, status: :ok, location: @product }
-      else
-        format.html { render :edit }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
+    Stripe::Product.delete(@product.stripe_product_id)
     @product.destroy
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
