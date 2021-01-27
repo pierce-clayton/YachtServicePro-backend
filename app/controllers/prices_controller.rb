@@ -45,7 +45,7 @@ class PricesController < ApplicationController
     @price[:stripe_type] = @stripe_price['type']
 
     if @price.save!
-      render json: @price
+      render json: @product, include: :prices
     else
       render json: {errors: 'there was an error'}
     end
