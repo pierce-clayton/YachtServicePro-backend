@@ -46,8 +46,7 @@ class PricesController < ApplicationController
 
     respond_to do |format|
       if @price.save!
-        format.html { redirect_to product_prices_path(@product), notice: 'Price was successfully created.' }
-        format.json { render :show, status: :created, location: @price }
+        render json: @product
       else
         format.html { render :new }
         format.json { render json: @price.errors, status: :unprocessable_entity }
