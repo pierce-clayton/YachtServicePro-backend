@@ -58,7 +58,7 @@ class YachtsController < ApplicationController
   def destroy
     @yacht.destroy
     respond_to do |format|
-      format.html { redirect_to yachts_url, notice: 'Yacht was successfully destroyed.' }
+      format.html { redirect_to yachts_url, status: 303 }
       format.json { head :no_content }
     end
   end
